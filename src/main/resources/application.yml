@@ -1,9 +1,10 @@
   spring:
     data:
       mongodb:
+        authentication-database: admin
         user: user-node
         password: VjZaVU40auDAQNzF@
-        uri: mongodb+srv://mycluster.hs7kv.mongodb.net/anagrams
+        uri: mongodb+srv://user-node:VjZaVU40auDAQNzF@mycluster.hs7kv.mongodb.net/anagrams
   logging:
     level:
       org:
