@@ -1,0 +1,14 @@
+  spring:
+    data:
+      mongodb:
+        user: user-node
+        password: VjZaVU40auDAQNzF@
+        uri: mongodb+srv://mycluster.hs7kv.mongodb.net/anagrams
+  logging:
+    level:
+      org:
+        springframework:
+          boot:
+            autoconfigure:
+              mongo:
+                embedded: off
