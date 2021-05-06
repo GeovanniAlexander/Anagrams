@@ -12,5 +12,6 @@ public interface IAnagramService {
     void save(AnagramRequestDto request);
     Boolean validateWords(AnagramRequestDto request);
     HashMap<String, List<String>> validateAnagrams(List<String> words);
+    AnagramResponseDto filterAnagrams(List<String> words);
     AnagramResponseDto validatePhrases(AnagramRequestDto request);
 }

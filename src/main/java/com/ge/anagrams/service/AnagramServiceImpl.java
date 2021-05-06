@@ -34,11 +34,17 @@ public class AnagramServiceImpl implements IAnagramService {
 
     @Override
     public AnagramResponseDto validatePhrases(AnagramRequestDto request) {
-        List<String> anagrams = new ArrayList<>();
         List<String> words = Arrays.asList(
                 request.getPhrase1().concat(" ").concat(request.getPhrase2())
                 .split(" ")
         );
+
+        return filterAnagrams(words);
+    }
+
+    @Override
+    public AnagramResponseDto filterAnagrams(List<String> words) {
+        List<String> anagrams = new ArrayList<>();
         List<List<String>> wordsMap = validateAnagrams(words).values().stream()
                 .filter(strings -> strings.size() > 1)
                 .peek(anagrams::addAll).collect(Collectors.toList());
