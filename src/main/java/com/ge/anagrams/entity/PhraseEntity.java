@@ -5,16 +5,16 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "words")
+@Document(collection = "phrases")
 @Data
 @NoArgsConstructor
-public class WordEntity {
+public class PhraseEntity {
 
     @Id
     private String id;
-    private String word;
+    private String phrase;
 
-    public WordEntity(String word) {
-        this.word = word;
+    public PhraseEntity(String phrase) {
+        this.phrase = phrase;
     }
 }

@@ -1,10 +1,11 @@
 package com.ge.anagrams;
 
-import com.ge.anagrams.repository.service.IWordRepositoryService;
+import com.ge.anagrams.repository.service.IPhraseRepositoryService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -13,15 +14,15 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class WordRepositoryMockTest {
 
-    @Autowired
-    private IWordRepositoryService wordRepository;
+    @Mock
+    private IPhraseRepositoryService wordRepository;
 
     @Test
     public void whenFindWord_thenReturnListWords(){
         wordRepository.save("testWord");
-        List<String> words = wordRepository.findAll();
+        List<String> phrase = wordRepository.findAll();
 
-        Assertions.assertThat(words.size()).isEqualTo(1);
+        Assertions.assertThat(phrase.size()).isEqualTo(1);
     }
 
 }

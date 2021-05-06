@@ -2,7 +2,7 @@ package com.ge.anagrams.repository.service;
 
 import java.util.List;
 
-public interface IWordRepositoryService {
-    void save(String word);
+public interface IPhraseRepositoryService {
+    void save(String phrase);
     List<String> findAll();
 }
