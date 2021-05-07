@@ -3,6 +3,7 @@ package com.ge.anagrams.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ge.anagrams.api.request.AnagramRequestDto;
+import com.ge.anagrams.api.request.AnagramSingle;
 import com.ge.anagrams.api.response.AnagramResponseDto;
 import com.ge.anagrams.api.response.ErrorMessage;
 import com.ge.anagrams.service.IAnagramService;
@@ -42,6 +43,11 @@ public class AnagramController {
         }
 
         return ResponseEntity.ok(anagramService.validatePhrases(request));
+    }
+
+    @PostMapping(value = "/validate/persistent/phrases")
+    public ResponseEntity<AnagramResponseDto> validatePersistentPhrases(@Valid @RequestBody AnagramSingle request, BindingResult result) {
+        return ResponseEntity.ok(anagramService.savePhrase(request));
     }
 
     @PostMapping

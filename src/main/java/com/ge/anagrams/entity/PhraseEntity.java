@@ -13,6 +13,7 @@ public class PhraseEntity {
     @Id
     private String id;
     private String phrase;
+    private boolean status = true;
 
     public PhraseEntity(String phrase) {
         this.phrase = phrase;

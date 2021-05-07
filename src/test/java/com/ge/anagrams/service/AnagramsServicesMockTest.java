@@ -17,7 +17,7 @@ public class AnagramsServicesMockTest {
 
     @Test
     public void whenWordsAreAnagramsThenReturnTrue() {
-        AnagramRequestDto words = new AnagramRequestDto("abcdefghijklmnopqrstuvwxyz","aflmzgbcnvwxhistyopqrdeujk");
+        AnagramRequestDto words = new AnagramRequestDto("abcdefxgxhgigjhkjlkmnopqrstuvwxyz","vwkjlfxgxoykqrstuzmndepabcxhgigjh");
         Assert.assertTrue(anagramService.validateWords(words));
     }
 

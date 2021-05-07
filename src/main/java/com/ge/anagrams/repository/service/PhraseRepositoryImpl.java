@@ -24,4 +24,14 @@ public class PhraseRepositoryImpl implements IPhraseRepositoryService {
     public List<String> findAll() {
         return wordRepository.findAll().stream().map(PhraseEntity::getPhrase).collect(Collectors.toList());
     }
+
+    @Override
+    public PhraseEntity findByPhrase(String phrase) {
+        return wordRepository.findByPhrase(phrase);
+    }
+
+    @Override
+    public List<String> findByStatusNot(boolean status) {
+        return wordRepository.findByStatusNot(status).stream().map(PhraseEntity::getPhrase).collect(Collectors.toList());
+    }
 }

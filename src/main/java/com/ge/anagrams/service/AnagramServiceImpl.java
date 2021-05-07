@@ -1,11 +1,15 @@
 package com.ge.anagrams.service;
 
 import com.ge.anagrams.api.request.AnagramRequestDto;
+import com.ge.anagrams.api.request.AnagramSingle;
 import com.ge.anagrams.api.response.AnagramResponseDto;
+import com.ge.anagrams.entity.PhraseEntity;
 import com.ge.anagrams.repository.service.IPhraseRepositoryService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,11 +18,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AnagramServiceImpl implements IAnagramService {
 
-    private final IPhraseRepositoryService wordRepository;
+    private final IPhraseRepositoryService phraseRepository;
 
     @Override
     public void save(AnagramRequestDto request){
-        wordRepository.save(request.getPhrase1());
+        phraseRepository.save(request.getPhrase1());
     }
 
     @Override
@@ -40,6 +44,20 @@ public class AnagramServiceImpl implements IAnagramService {
         );
 
         return filterAnagrams(words);
+    }
+
+    @Override
+    public AnagramResponseDto savePhrase(AnagramSingle request) {
+        PhraseEntity phrase = phraseRepository.findByPhrase(request.getPhrase());
+        if(phrase != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La frase ya ha sido almacenada");
+        }
+        List<String> persistentPhrases = phraseRepository.findByStatusNot(false);
+        if(persistentPhrases.size() == 3) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ya fueron almacenadas 3 frases");
+        }
+        phraseRepository.save(request.getPhrase());
+        return null;
     }
 
     @Override
