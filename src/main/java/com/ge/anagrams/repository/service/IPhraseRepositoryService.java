@@ -9,4 +9,5 @@ public interface IPhraseRepositoryService {
     List<String> findAll();
     PhraseEntity findByPhrase(String phrase);
     List<String> findByStatusNot(boolean status);
+    void updateAllStatus(boolean status);
 }

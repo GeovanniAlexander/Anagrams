@@ -13,6 +13,7 @@ public interface IAnagramService {
     void save(AnagramRequestDto request);
     Boolean validateWords(AnagramRequestDto request);
     AnagramResponseDto savePhrase(AnagramSingle request);
+    AnagramResponseDto getAnagrams();
     HashMap<String, List<String>> validateAnagrams(List<String> words);
     AnagramResponseDto filterAnagrams(List<String> words);
     AnagramResponseDto validatePhrases(AnagramRequestDto request);

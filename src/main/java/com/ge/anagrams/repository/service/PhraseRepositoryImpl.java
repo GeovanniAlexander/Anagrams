@@ -4,6 +4,7 @@ import com.ge.anagrams.entity.PhraseEntity;
 import com.ge.anagrams.repository.IPhraseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,26 +13,36 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PhraseRepositoryImpl implements IPhraseRepositoryService {
 
-    private final IPhraseRepository wordRepository;
+    private final IPhraseRepository phraseRepository;
 
     @Override
     public void save(String phrase) {
         PhraseEntity phraseIns = new PhraseEntity(phrase);
-        wordRepository.save(phraseIns);
+        phraseRepository.save(phraseIns);
     }
 
     @Override
     public List<String> findAll() {
-        return wordRepository.findAll().stream().map(PhraseEntity::getPhrase).collect(Collectors.toList());
+        return phraseRepository.findAll().stream().map(PhraseEntity::getPhrase).collect(Collectors.toList());
     }
 
     @Override
     public PhraseEntity findByPhrase(String phrase) {
-        return wordRepository.findByPhrase(phrase);
+        return phraseRepository.findByPhrase(phrase);
     }
 
     @Override
     public List<String> findByStatusNot(boolean status) {
-        return wordRepository.findByStatusNot(status).stream().map(PhraseEntity::getPhrase).collect(Collectors.toList());
+        return phraseRepository.findByStatusNot(status).stream().map(PhraseEntity::getPhrase).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void updateAllStatus(boolean status) {
+        List<PhraseEntity> phrases = phraseRepository.findByStatusNot(status);
+        phrases.forEach(phrase ->{
+            phrase.setStatus(status);
+            phraseRepository.save(phrase);
+        });
     }
 }

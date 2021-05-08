@@ -61,6 +61,17 @@ public class AnagramServiceImpl implements IAnagramService {
     }
 
     @Override
+    public AnagramResponseDto getAnagrams() {
+        List<String> persistentPhrases = phraseRepository.findByStatusNot(false);
+        String phrases = String.join(" ", persistentPhrases);
+        List<String> words = Arrays.asList(
+                phrases.split(" ")
+        );
+        phraseRepository.updateAllStatus(false);
+        return filterAnagrams(words);
+    }
+
+    @Override
     public AnagramResponseDto filterAnagrams(List<String> words) {
         List<String> anagrams = new ArrayList<>();
         List<List<String>> wordsMap = validateAnagrams(words).values().stream()
