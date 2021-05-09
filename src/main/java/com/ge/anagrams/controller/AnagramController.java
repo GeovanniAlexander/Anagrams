@@ -1,8 +1,8 @@
 package com.ge.anagrams.controller;
 
-import com.ge.anagrams.api.request.AnagramRequestDto;
-import com.ge.anagrams.api.request.AnagramSingle;
-import com.ge.anagrams.api.response.AnagramResponseDto;
+import com.ge.anagrams.api.request.AnagramRequest;
+import com.ge.anagrams.api.request.AnagramSinglePhraseRequest;
+import com.ge.anagrams.api.response.AnagramResponse;
 import com.ge.anagrams.service.IAnagramService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,40 +21,36 @@ public class AnagramController {
 
     private final IAnagramService anagramService;
 
-    @PostMapping(value = "/validate/words")
-    public ResponseEntity<Boolean> validateWords(@Valid @RequestBody AnagramRequestDto request, BindingResult result) {
-        if(result.hasErrors()) {
+    @GetMapping(value = "/validation/words")
+    public ResponseEntity<Boolean> validateWords(@Valid @RequestBody AnagramRequest request, BindingResult result) {
+        if (result.hasErrors()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, formatMessage(result));
         }
 
         return ResponseEntity.ok(anagramService.validateWords(request));
     }
 
-    @PostMapping(value = "/validate/phrases")
-    public ResponseEntity<AnagramResponseDto> validatePhrases(@Valid @RequestBody AnagramRequestDto request, BindingResult result) {
-        if(result.hasErrors()) {
+    @GetMapping(value = "/validation/phrases")
+    public ResponseEntity<AnagramResponse> validatePhrases(@Valid @RequestBody AnagramRequest request, BindingResult result) {
+        if (result.hasErrors()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatMessage(result));
         }
 
         return ResponseEntity.ok(anagramService.validatePhrases(request));
     }
 
-    @PostMapping(value = "/validate/persistent/phrases")
-    public ResponseEntity<AnagramResponseDto> validatePersistentPhrases(@Valid @RequestBody AnagramSingle request, BindingResult result) {
-        if(result.hasErrors()) {
+    @PostMapping(value = "/phrases")
+    public ResponseEntity<AnagramResponse> validatePersistentPhrases(@Valid @RequestBody AnagramSinglePhraseRequest request, BindingResult result) {
+        if (result.hasErrors()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatMessage(result));
         }
+
         return ResponseEntity.ok(anagramService.savePhrase(request));
     }
 
-    @GetMapping(value = "/validate/persistent/phrases")
-    public ResponseEntity<AnagramResponseDto> getAnagrams() {
+    @GetMapping(value = "/validation/persistent/phrases")
+    public ResponseEntity<AnagramResponse> getAnagrams() {
         return ResponseEntity.ok(anagramService.getAnagrams());
-    }
-
-    @PostMapping
-    public void saveWord(@RequestBody AnagramRequestDto request){
-        anagramService.save(request);
     }
 
     private String formatMessage(BindingResult result) {

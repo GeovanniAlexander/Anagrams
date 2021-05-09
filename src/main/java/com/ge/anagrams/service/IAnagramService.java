@@ -1,8 +1,8 @@
 package com.ge.anagrams.service;
 
-import com.ge.anagrams.api.request.AnagramRequestDto;
-import com.ge.anagrams.api.request.AnagramSingle;
-import com.ge.anagrams.api.response.AnagramResponseDto;
+import com.ge.anagrams.api.request.AnagramRequest;
+import com.ge.anagrams.api.request.AnagramSinglePhraseRequest;
+import com.ge.anagrams.api.response.AnagramResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -10,11 +10,10 @@ import java.util.List;
 
 @Service
 public interface IAnagramService {
-    void save(AnagramRequestDto request);
-    Boolean validateWords(AnagramRequestDto request);
-    AnagramResponseDto savePhrase(AnagramSingle request);
-    AnagramResponseDto getAnagrams();
+    Boolean validateWords(AnagramRequest request);
+    AnagramResponse savePhrase(AnagramSinglePhraseRequest request);
+    AnagramResponse getAnagrams();
     HashMap<String, List<String>> validateAnagrams(List<String> words);
-    AnagramResponseDto filterAnagrams(List<String> words);
-    AnagramResponseDto validatePhrases(AnagramRequestDto request);
+    AnagramResponse filterAnagrams(List<String> words);
+    AnagramResponse validatePhrases(AnagramRequest request);
 }

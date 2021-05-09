@@ -1,11 +1,10 @@
-package com.ge.anagrams;
+package com.ge.anagrams.repository;
 
 import com.ge.anagrams.repository.service.IPhraseRepositoryService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class WordRepositoryMockTest {
 
-    @Mock
+    @Autowired
     private IPhraseRepositoryService wordRepository;
 
     @Test

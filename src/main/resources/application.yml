@@ -13,3 +13,6 @@
   server:
     error:
       include-message: always
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui:html

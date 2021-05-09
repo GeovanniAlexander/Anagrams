@@ -1,15 +1,15 @@
 package com.ge.anagrams.api.request;
 
-import lombok.AllArgsConstructor;
+import com.ge.anagrams.commons.constants.IMessagesResponse;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class AnagramSingle {
+public class AnagramSinglePhraseRequest {
 
-    @NotNull(message = "El campo no puede ser nulo")
+    @NotNull(message = IMessagesResponse.NOT_NULL)
     @Size(min = 1, message = "El campo no puede ser vacio")
     private String phrase;
 }

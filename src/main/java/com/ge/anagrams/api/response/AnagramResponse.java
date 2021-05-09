@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class AnagramResponseDto {
+public class AnagramResponse {
     private int count;
     private List<String> words;
 }

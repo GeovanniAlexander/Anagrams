@@ -1,44 +1,69 @@
 package com.ge.anagrams.service;
 
-import com.ge.anagrams.api.request.AnagramRequestDto;
-import com.ge.anagrams.api.response.AnagramResponseDto;
+import com.ge.anagrams.api.request.AnagramRequest;
+import com.ge.anagrams.api.response.AnagramResponse;
+import com.ge.anagrams.repository.service.IPhraseRepositoryService;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Arrays;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AnagramsServicesMockTest {
 
+    @Mock
+    private IPhraseRepositoryService phraseRepository;
+
     @InjectMocks
     private AnagramServiceImpl anagramService;
 
+    @Before
+    public void setUp() {
+        Mockito.when(phraseRepository
+                .findByStatusNot(Mockito.anyBoolean()))
+                .thenReturn(Arrays.asList(
+                        "test solo tres anagramas",
+                        "este ttse no mas tsre",
+                        "anaaramsg final"
+                ));
+    }
+
     @Test
     public void whenWordsAreAnagramsThenReturnTrue() {
-        AnagramRequestDto words = new AnagramRequestDto("abcdefxgxhgigjhkjlkmnopqrstuvwxyz","vwkjlfxgxoykqrstuzmndepabcxhgigjh");
+        AnagramRequest words = new AnagramRequest("abcdefxgxhgigjhkjlkmnopqrstuvwxyz","vwkjlfxgxoykqrstuzmndepabcxhgigjh");
         Assert.assertTrue(anagramService.validateWords(words));
     }
 
     @Test
     public void whenWordsAreNotAnagramsThenReturnFalse() {
-        AnagramRequestDto words = new AnagramRequestDto("Test","estt");
+        AnagramRequest words = new AnagramRequest("Test","estt");
         Assert.assertFalse(anagramService.validateWords(words));
     }
 
     @Test
     public void whenPhrasesHasAnagramsReturnCountOfAnagrams() {
-        AnagramRequestDto words = new AnagramRequestDto("angela es conservadora","ellos alegan que ella es muy conversadora");
-        AnagramResponseDto wordsValidated = anagramService.validatePhrases(words);
+        AnagramRequest words = new AnagramRequest("angela es conservadora","ellos alegan que ella es muy conversadora");
+        AnagramResponse wordsValidated = anagramService.validatePhrases(words);
         Assertions.assertThat(wordsValidated.getCount()).isEqualTo(3);
     }
 
     @Test
     public void whenPhrasesHasNotAnagramsReturnEmptyListWords() {
-        AnagramRequestDto words = new AnagramRequestDto("Angela le encanta comer","ellos alegan que ella es muy conversadora");
-        AnagramResponseDto wordsValidated = anagramService.validatePhrases(words);
+        AnagramRequest words = new AnagramRequest("Angela le encanta comer","ellos alegan que ella es muy conversadora");
+        AnagramResponse wordsValidated = anagramService.validatePhrases(words);
         Assertions.assertThat(wordsValidated.getWords().size()).isEqualTo(0);
     }
 
+    @Test
+    public void whenPersistentPhrasesHasAnagramsReturnListWords() {
+        AnagramResponse wordsValidated = anagramService.getAnagrams();
+        Assertions.assertThat(wordsValidated.getCount()).isEqualTo(3);
+    }
 }

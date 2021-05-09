@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
-public class AnagramRequestDto {
+public class AnagramRequest {
 
     @NotNull(message = "El campo no puede ser nulo")
     @Size(min = 1, message = "El campo no puede ser vacio")

@@ -1,8 +1,9 @@
 package com.ge.anagrams.service;
 
-import com.ge.anagrams.api.request.AnagramRequestDto;
-import com.ge.anagrams.api.request.AnagramSingle;
-import com.ge.anagrams.api.response.AnagramResponseDto;
+import com.ge.anagrams.api.request.AnagramRequest;
+import com.ge.anagrams.api.request.AnagramSinglePhraseRequest;
+import com.ge.anagrams.api.response.AnagramResponse;
+import com.ge.anagrams.commons.constants.IMessagesResponse;
 import com.ge.anagrams.entity.PhraseEntity;
 import com.ge.anagrams.repository.service.IPhraseRepositoryService;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +22,7 @@ public class AnagramServiceImpl implements IAnagramService {
     private final IPhraseRepositoryService phraseRepository;
 
     @Override
-    public void save(AnagramRequestDto request){
-        phraseRepository.save(request.getPhrase1());
-    }
-
-    @Override
-    public Boolean validateWords(AnagramRequestDto request) {
+    public Boolean validateWords(AnagramRequest request) {
         List<String> words = Arrays.asList(
                 request.getPhrase1(),
                 request.getPhrase2()
@@ -37,17 +33,17 @@ public class AnagramServiceImpl implements IAnagramService {
     }
 
     @Override
-    public AnagramResponseDto validatePhrases(AnagramRequestDto request) {
+    public AnagramResponse validatePhrases(AnagramRequest request) {
         List<String> words = Arrays.asList(
-                request.getPhrase1().concat(" ").concat(request.getPhrase2())
-                .split(" ")
+                request.getPhrase1().concat(IMessagesResponse.BLANK_SPACE).concat(request.getPhrase2())
+                .split(IMessagesResponse.BLANK_SPACE)
         );
 
         return filterAnagrams(words);
     }
 
     @Override
-    public AnagramResponseDto savePhrase(AnagramSingle request) {
+    public AnagramResponse savePhrase(AnagramSinglePhraseRequest request) {
         PhraseEntity phrase = phraseRepository.findByPhrase(request.getPhrase());
         if(phrase != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La frase ya ha sido almacenada");
@@ -61,24 +57,27 @@ public class AnagramServiceImpl implements IAnagramService {
     }
 
     @Override
-    public AnagramResponseDto getAnagrams() {
+    public AnagramResponse getAnagrams() {
         List<String> persistentPhrases = phraseRepository.findByStatusNot(false);
-        String phrases = String.join(" ", persistentPhrases);
+        if( persistentPhrases.size() < 3) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No han sido almacenadas las frases suficientes");
+        }
+        String phrases = String.join(IMessagesResponse.BLANK_SPACE, persistentPhrases);
         List<String> words = Arrays.asList(
-                phrases.split(" ")
+                phrases.split(IMessagesResponse.BLANK_SPACE)
         );
         phraseRepository.updateAllStatus(false);
         return filterAnagrams(words);
     }
 
     @Override
-    public AnagramResponseDto filterAnagrams(List<String> words) {
+    public AnagramResponse filterAnagrams(List<String> words) {
         List<String> anagrams = new ArrayList<>();
         List<List<String>> wordsMap = validateAnagrams(words).values().stream()
                 .filter(strings -> strings.size() > 1)
                 .peek(anagrams::addAll).collect(Collectors.toList());
 
-        return new AnagramResponseDto(wordsMap.size(), anagrams);
+        return new AnagramResponse(wordsMap.size(), anagrams);
     }
 
     @Override
