@@ -10,6 +10,6 @@ import javax.validation.constraints.Size;
 public class AnagramSinglePhraseRequest {
 
     @NotNull(message = IMessagesResponse.NOT_NULL)
-    @Size(min = 1, message = "El campo no puede ser vacio")
+    @Size(min = 1, message = IMessagesResponse.NOT_EMPTY)
     private String phrase;
 }

@@ -46,11 +46,11 @@ public class AnagramServiceImpl implements IAnagramService {
     public AnagramResponse savePhrase(AnagramSinglePhraseRequest request) {
         PhraseEntity phrase = phraseRepository.findByPhrase(request.getPhrase());
         if(phrase != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La frase ya ha sido almacenada");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, IMessagesResponse.PHRASE_ALREADY_EXISTS);
         }
         List<String> persistentPhrases = phraseRepository.findByStatusNot(false);
-        if(persistentPhrases.size() == 3) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ya fueron almacenadas 3 frases");
+        if(persistentPhrases.size() >= 3) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, IMessagesResponse.PHRASES_LIMIT_EXCEEDED);
         }
         phraseRepository.save(request.getPhrase());
         return null;
@@ -60,7 +60,7 @@ public class AnagramServiceImpl implements IAnagramService {
     public AnagramResponse getAnagrams() {
         List<String> persistentPhrases = phraseRepository.findByStatusNot(false);
         if( persistentPhrases.size() < 3) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No han sido almacenadas las frases suficientes");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, IMessagesResponse.INSUFFICIENT_PHRASES);
         }
         String phrases = String.join(IMessagesResponse.BLANK_SPACE, persistentPhrases);
         List<String> words = Arrays.asList(

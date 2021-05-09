@@ -11,7 +11,7 @@ import java.util.List;
 
 @AutoConfigureDataMongo
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class WordRepositoryMockTest {
+public class PhraseRepositoryMockTest {
 
     @Autowired
     private IPhraseRepositoryService wordRepository;
