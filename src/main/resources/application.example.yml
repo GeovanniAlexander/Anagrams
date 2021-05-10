@@ -1,7 +1,7 @@
   spring:
     data:
       mongodb:
-        uri: mongodb+srv://user-node:VjZaVU40auDAQNzF@mycluster.hs7kv.mongodb.net/anagrams
+        uri:
   logging:
     level:
       org:
@@ -13,6 +13,7 @@
   server:
     error:
       include-message: always
+    address: 0.0.0.0
   springdoc:
     swagger-ui:
       path: /swagger-ui:html
