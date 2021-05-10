@@ -1,0 +1,3 @@
+com\ge\anagrams\AnagramsApplicationTests.class
+com\ge\anagrams\repository\PhraseRepositoryMockTest.class
+com\ge\anagrams\service\AnagramsServicesMockTest.class

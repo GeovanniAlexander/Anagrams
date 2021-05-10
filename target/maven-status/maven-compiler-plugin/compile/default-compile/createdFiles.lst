@@ -1,0 +1,13 @@
+com\ge\anagrams\service\IAnagramService.class
+com\ge\anagrams\service\AnagramServiceImpl.class
+com\ge\anagrams\controller\AnagramController.class
+com\ge\anagrams\entity\PhraseEntity$PhraseEntityBuilder.class
+com\ge\anagrams\AnagramsApplication.class
+com\ge\anagrams\repository\IPhraseRepository.class
+com\ge\anagrams\commons\constants\IMessagesResponse.class
+com\ge\anagrams\repository\service\PhraseRepositoryImpl.class
+com\ge\anagrams\entity\PhraseEntity.class
+com\ge\anagrams\api\request\AnagramSinglePhraseRequest.class
+com\ge\anagrams\api\response\AnagramResponse.class
+com\ge\anagrams\api\request\AnagramRequest.class
+com\ge\anagrams\repository\service\IPhraseRepositoryService.class

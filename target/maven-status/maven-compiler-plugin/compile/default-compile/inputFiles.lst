@@ -1,0 +1,12 @@
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\api\request\AnagramSinglePhraseRequest.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\service\IAnagramService.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\repository\IPhraseRepository.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\api\response\AnagramResponse.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\api\request\AnagramRequest.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\controller\AnagramController.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\commons\constants\IMessagesResponse.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\entity\PhraseEntity.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\repository\service\PhraseRepositoryImpl.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\repository\service\IPhraseRepositoryService.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\service\AnagramServiceImpl.java
+C:\Users\Alex\Documents\anagrams\src\main\java\com\ge\anagrams\AnagramsApplication.java

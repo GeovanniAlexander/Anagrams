@@ -1,0 +1,19 @@
+  spring:
+    data:
+      mongodb:
+        uri:
+  logging:
+    level:
+      org:
+        springframework:
+          boot:
+            autoconfigure:
+              mongo:
+                embedded: off
+  server:
+    error:
+      include-message: always
+    address: 0.0.0.0
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui:html
